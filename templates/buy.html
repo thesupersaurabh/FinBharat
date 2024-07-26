@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="card-title mb-4">Buy Stock</h1>
+                        <form action="/buy" method="post">
+                            <div class="mb-3">
+                                <label for="symbol" class="form-label">Enter Stock Symbol (NSE):</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-bar-chart"></i></span>
+                                    <input
+                                        id="symbol"
+                                        autocomplete="off"
+                                        autofocus
+                                        class="form-control"
+                                        list="symbols"
+                                        name="symbol"
+                                        placeholder="e.g., TCS, INFY, RELIANCE"
+                                        type="text"
+                                    >
+                                    <datalist id="symbols">
+                                        <option value="TCS">
+                                        <option value="INFY">
+                                        <option value="RELIANCE">
+                                        <option value="HDFCBANK">
+                                        <option value="ITC">
+                                        <!-- Add more symbols as needed -->
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="shares" class="form-label">Number of Shares:</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-cash"></i></span>
+                                    <input
+                                        id="shares"
+                                        autocomplete="off"
+                                        class="form-control"
+                                        name="shares"
+                                        placeholder="Shares"
+                                        type="number"
+                                    >
+                                </div>
+                            </div>
+                            <button class="btn btn-primary w-100" type="submit">
+                                <i class="bi bi-bag-fill"></i> Buy
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

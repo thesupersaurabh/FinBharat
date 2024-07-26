@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quoted
+{% endblock %}
+
+{% block main %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h1 class="card-title mb-4"><i class="fas fa-info-circle"></i> Quoted Information</h1>
+                    <div class="mb-3">
+                        <h4 class="mb-1"><i class="fas fa-tag"></i> Name:</h4>
+                        <p class="fs-5">{{ name }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h4 class="mb-1"><i class="fas fa-inr"></i> Price:</h4>
+                        <p class="fs-5">₹{{ price }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h4 class="mb-1"><i class="fas fa-chart-line"></i> Symbol:</h4>
+                        <p class="fs-5">{{ symbol }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

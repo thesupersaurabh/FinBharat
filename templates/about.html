@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    About FinBha₹at
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <h1 class="mb-4">About FinBha₹at</h1>
+        <p class="lead">
+            FinBha₹at is a web application designed as an alternative to CS50's Finance course project, tailored specifically for the Indian stock market. This tool provides users with a suite of features to manage their virtual stock portfolio effectively:
+        </p>
+        <ul class="list-group mb-4">
+            <li class="list-group-item"><strong>User Authentication:</strong> Secure login and registration with hashed passwords and session management.</li>
+            <li class="list-group-item"><strong>Buy Stocks:</strong> Purchase shares of stocks with real-time price updates and manage your portfolio.</li>
+            <li class="list-group-item"><strong>Sell Stocks:</strong> Sell stocks from your portfolio with automatic updates to your cash balance.</li>
+            <li class="list-group-item"><strong>View Portfolio:</strong> Displays current stock holdings, including symbols, quantities, and market values.</li>
+            <li class="list-group-item"><strong>Transaction History:</strong> Detailed history of all stock transactions, including purchases and sales.</li>
+            <li class="list-group-item"><strong>Get Stock Quotes:</strong> Retrieve real-time stock prices and company information from external data services.</li>
+            <li class="list-group-item"><strong>Stock Lookup:</strong> Search for stock symbols and obtain relevant information to make informed trading decisions.</li>
+            <li class="list-group-item"><strong>Cash Management:</strong> Shows your current cash balance and updates it automatically after trades.</li>
+        </ul>
+        <p>
+            Derived from CS50 Problem Set 9 (pset9), FinBha₹at has been customized and extended to meet the needs of the Indian market. The application is now live and ready for use.
+        </p>
+        <p>
+            To explore the source code or learn more about this project, visit my <a href="https://github.com/thesupersaurabh/FinBharat" class="btn btn-outline-primary">GitHub repository</a> for additional details.
+        </p>
+    </div>
+{% endblock %}

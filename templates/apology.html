@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <div class="text-center">
+            <h1 class="mb-4">We Apologize</h1>
+            <p class="lead mb-4">Something went wrong. Please try again later.</p>
+            <img
+                alt="{{ top }}"
+                class="border rounded img-fluid shadow-lg"
+                src="https://api.memegen.link/images/grumpycat/{{ top }}/{{ bottom }}.png"
+                title="{{ top }}"
+                style="max-width: 100%; height: auto;"
+            >
+            <div class="mt-4">
+                <a href="/" class="btn btn-primary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

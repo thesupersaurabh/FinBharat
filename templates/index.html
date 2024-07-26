@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block main %}
+<div class="container mt-4">
+    <h1 class="mb-4"><i class="fas fa-briefcase"></i> Stock Portfolio</h1>
+
+    {% if not database %}
+        <div class="alert alert-info">
+            <p>No stocks in your portfolio.</p>
+            <p>Available amount: <strong>{{ cash }}</strong></p>
+            <a href="/buy" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Buy Stocks</a>
+        </div>
+    {% else %}
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th><i class="fas fa-chart-line"></i> Symbol</th>
+                        <th><i class="fas fa-exchange"></i> Shares</th>
+                        <th><i class="fas fa-inr"></i> Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in database %}
+                        <tr>
+                            <td>{{ row["symbol"] }}</td>
+                            <td>{{ row["shares"] }}</td>
+                            <td>₹{{ row["price"] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total Value in Wallet</th>
+                        <th>{{ total_shares }}</th>
+                        <th>{{ cash }}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
