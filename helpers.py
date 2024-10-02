@@ -7,28 +7,18 @@ import time
 from flask import redirect, render_template, session
 from functools import wraps
 
-
 def apology(message, code=400):
     """Render message as an apology to user."""
     def escape(s):
-        """
-        Escape special characters.
-
-        https://github.com/jacebrowning/memegen#special-characters
-        """
+        """Escape special characters."""
         for old, new in [("-", "--"), (" ", "-"), ("_", "__"), ("?", "~q"),
                          ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
             s = s.replace(old, new)
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
 
-
 def login_required(f):
-    """
-    Decorate routes to require login.
-
-    http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
-    """
+    """Decorate routes to require login."""
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if session.get("user_id") is None:
@@ -36,26 +26,23 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-
 def lookup(symbol):
     """Look up quote for symbol."""
-
+    
     # Prepare API request
     symbol = symbol.upper()
-    end = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
-    start = end - datetime.timedelta(days=7)
 
-    # Yahoo Finance API
+    # Yahoo Finance API URL
     url = (
-    f"https://query1.finance.yahoo.com/v8/finance/chart/"
-    f"{symbol}.NS"
-    f"?region=US&lang=en-US&includePrePost=false"
-    f"&interval=2m&useYfid=true&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance"
-)
+        f"https://query1.finance.yahoo.com/v8/finance/chart/"
+        f"{symbol}.NS"
+        f"?region=US&lang=en-US&includePrePost=false"
+        f"&interval=2m&useYfid=true&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance"
+    )
 
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "Accept": "application/json",
     }
     session = requests.Session()
 
@@ -64,12 +51,19 @@ def lookup(symbol):
             response = session.get(url, headers=headers)
             response.raise_for_status()
 
-            # CSV header: Date,Open,High,Low,Close,Adj Close,Volume
-            quotes = list(csv.DictReader(response.content.decode("utf-8").splitlines()))
-            quotes.reverse()
-            price = round(float(quotes[0]["Adj Close"]), 2)
+            # Parse the JSON response
+            data = response.json()
+            result = data.get("chart", {}).get("result", [])
+            if not result:
+                print("No results found.")
+                return None
+
+            # Extracting the latest quote data
+            quote = result[0]
+            price = round(float(quote["meta"]["regularMarketPrice"]), 2)
+            name = quote["meta"]["longName"]
             return {
-                "name": symbol,
+                "name": name,
                 "price": price,
                 "symbol": symbol
             }
@@ -87,7 +81,6 @@ def lookup(symbol):
     print("Failed to retrieve data after several attempts.")
     return None
 
-
 def inr(value):
-    """Format value as inr."""
+    """Format value as INR."""
     return f"₹{value:,.2f}"
