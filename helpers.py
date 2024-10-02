@@ -47,12 +47,11 @@ def lookup(symbol):
 
     # Yahoo Finance API
     url = (
-        f"https://query1.finance.yahoo.com/v7/finance/download/"
-        f"{symbol}.ns"
-        f"?period1={int(start.timestamp())}"
-        f"&period2={int(end.timestamp())}"
-        f"&interval=1d&events=history&includeAdjustedClose=true"
-    )
+    f"https://query1.finance.yahoo.com/v8/finance/chart/"
+    f"{symbol}.NS"
+    f"?region=US&lang=en-US&includePrePost=false"
+    f"&interval=2m&useYfid=true&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance"
+)
 
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
